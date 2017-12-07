@@ -19,7 +19,7 @@ public class ClassGroups {
     public void getTeachers() throws Exception {
         String classId = "1291044";
         String askURL = "/class/teacher/"+classId;
-        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
+        String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseGeneralURL + askURL;
@@ -34,7 +34,7 @@ public class ClassGroups {
     public void getUserInfoRepPWD() throws Exception {
         String studentId = "790252";
         String askURL = "/class/student/"+studentId;
-        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
+        String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseGeneralURL + askURL;
@@ -51,7 +51,7 @@ public class ClassGroups {
         String yearTerm = "2017~2018";
         String subjectId = "1";
         String askURL = "/class/yearTerm/"+classId+"/"+yearTerm+"/"+subjectId;
-        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
+        String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseGeneralURL + askURL;
