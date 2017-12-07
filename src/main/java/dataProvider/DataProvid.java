@@ -10,21 +10,21 @@ public class DataProvid {
     @DataProvider(name = "baseURL-General")
     public static Object[][] baseURLGeneral() {
         return new Object[][]{
-                new Object[]{"http://192.168.11.197:30091"}
+                new Object[]{"http://192.168.11.187:9001"}
         };
     }
 
     @DataProvider(name = "baseURL-Course")
     public static Object[][] baseURLCourse() {
         return new Object[][]{
-                new Object[]{"http://192.168.11.197:30092"}
+                new Object[]{"http://192.168.11.187:9002"}
         };
     }
 
     @DataProvider(name = "baseURL-Resource")
     public static Object[][] baseURLResource() {
         return new Object[][]{
-                new Object[]{"http://192.168.11.197:30093"}
+                new Object[]{"http://192.168.11.187:9003"}
         };
     }
 

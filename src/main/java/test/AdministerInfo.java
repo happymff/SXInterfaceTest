@@ -1,5 +1,6 @@
 package test;
 
+import com.alibaba.fastjson.JSON;
 import dataProvider.DataProvid;
 import dataProvider.ReadJsonFile;
 import org.testng.Assert;
@@ -17,8 +18,8 @@ public class AdministerInfo {
     //根据用户ID 获取用户可以管理的班级信息-JIAOXUE-SERVICE-API-25
     @Test(description = "登陆成功", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void adminClass(String baseGeneralURL) throws Exception {
-        String askURL = "/administer/class";
-        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
+        String askURL = "/administers/classes";
+        String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json",0);
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseGeneralURL + askURL;
