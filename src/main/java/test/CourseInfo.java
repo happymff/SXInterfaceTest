@@ -1,5 +1,7 @@
 package test;
 
+import dataProvider.DataProvid;
+import dataProvider.ReadJsonFile;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.HttpUtil;
@@ -10,11 +12,10 @@ import java.util.Map;
 
 
 public class CourseInfo {
-    String baseGeneralURL = "http://192.168.11.197:30092";
 
     //首页-爱学派课程-JIAOXUE-SERVICE-API-39
-    @Test
-    public void getCourses() throws Exception {
+    @Test(description = "登陆成功", dataProvider = "baseURL-Course", dataProviderClass = DataProvid.class)
+    public void getCourses(String baseCourseURL) throws Exception {
         String subjectId = "1";
         String gradeId = "1";
         String pageSize = "1";
@@ -25,10 +26,9 @@ public class CourseInfo {
         params.put("gradeId", gradeId);
         params.put("pageNum", pageNum);
         String askURL = "/course/axp-courses";
-        String userHeader = "{\"enable\":1,\"password\":\"lu123456\",\"roles\":[2],\"schoolId\":50043,\"schoolUserId\":873135,\"schoolUserRef\":\"2d4acfe9-4c79-4c72-8166-982a9a6762cd\",\"userId\":8439370,\"userIdentity\":1,\"userName\":\"luyueyue\"}";
-        Map headerMap = new HashMap();
+        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");        Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
-        String url = baseGeneralURL + askURL;
+        String url = baseCourseURL + askURL;
         String str = HttpUtil.get(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         String msg = JsonResults.getJsonMsg(str);
@@ -36,8 +36,8 @@ public class CourseInfo {
     }
 
     //获取教材列表-JIAOXUE-SERVICE-API-29
-    @Test
-    public void getMaterialList() throws Exception {
+    @Test(description = "登陆成功", dataProvider = "baseURL-Course", dataProviderClass = DataProvid.class)
+    public void getMaterialList(String baseCourseURL) throws Exception {
         String subjectId = "1";
         String gradeId = "1";
         String isIndex = "1";
@@ -46,10 +46,10 @@ public class CourseInfo {
         params.put("subjectId", subjectId);
         params.put("gradeId", gradeId);
         String askURL = "/course/materialList";
-        String userHeader = "{\"enable\":1,\"password\":\"lu123456\",\"roles\":[2],\"schoolId\":50043,\"schoolUserId\":873135,\"schoolUserRef\":\"2d4acfe9-4c79-4c72-8166-982a9a6762cd\",\"userId\":8439370,\"userIdentity\":1,\"userName\":\"luyueyue\"}";
+        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
-        String url = baseGeneralURL + askURL;
+        String url = baseCourseURL + askURL;
         String str = HttpUtil.get(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
@@ -57,8 +57,8 @@ public class CourseInfo {
     }
 
     //保存教师选择的教材-JIAOXUE-SERVICE-API-47
-    @Test
-    public void postTeacherMaterial() throws Exception {
+    @Test(description = "登陆成功", dataProvider = "baseURL-Course", dataProviderClass = DataProvid.class)
+    public void postTeacherMaterial(String baseCourseURL) throws Exception {
         String subjectId = "1";
         String gradeId = "1";
         String termId = "0090cf10-729d-4d8b-b402-d2d5aa172c55";
@@ -69,10 +69,10 @@ public class CourseInfo {
         params.put("gradeId", gradeId);
         params.put("materialId", materialId);
         String askURL = "/course/teacherMaterial";
-        String userHeader = "{\"enable\":1,\"password\":\"lu123456\",\"roles\":[2],\"schoolId\":50043,\"schoolUserId\":873135,\"schoolUserRef\":\"2d4acfe9-4c79-4c72-8166-982a9a6762cd\",\"userId\":8439370,\"userIdentity\":1,\"userName\":\"luyueyue\"}";
+        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
-        String url = baseGeneralURL + askURL;
+        String url = baseCourseURL + askURL;
         String str = HttpUtil.post(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
@@ -80,15 +80,15 @@ public class CourseInfo {
     }
 
     //首页教师课程列表-JIAOXUE-SERVICE-API-22
-    @Test
-    public void getIndexCourses() throws Exception {
+    @Test(description = "登陆成功", dataProvider = "baseURL-Course", dataProviderClass = DataProvid.class)
+    public void getIndexCourses(String baseCourseURL) throws Exception {
         String subjectId = "1";
         String gradeId = "1";
         String askURL = "/course/" + subjectId + "/" + gradeId + "/index-courses";
-        String userHeader = "{\"enable\":1,\"password\":\"lu123456\",\"roles\":[2],\"schoolId\":50043,\"schoolUserId\":873135,\"schoolUserRef\":\"2d4acfe9-4c79-4c72-8166-982a9a6762cd\",\"userId\":8439370,\"userIdentity\":1,\"userName\":\"luyueyue\"}";
+        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
-        String url = baseGeneralURL + askURL;
+        String url = baseCourseURL + askURL;
         String str = HttpUtil.get(url, null, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
@@ -96,16 +96,16 @@ public class CourseInfo {
     }
 
     //新建课，浮层信息-JIAOXUE-SERVICE-API-33
-    @Test
-    public void createInfomations() throws Exception {
+    @Test(description = "登陆成功", dataProvider = "baseURL-Course", dataProviderClass = DataProvid.class)
+    public void createInfomations(String baseCourseURL) throws Exception {
         String subjectId = "1";
         String gradeId = "1";
         String materialId = "1";
         String askURL = "/course/" + subjectId + "/" + gradeId + "/" + materialId + "/create-infos";
-        String userHeader = "{\"enable\":1,\"password\":\"lu123456\",\"roles\":[2],\"schoolId\":50043,\"schoolUserId\":873135,\"schoolUserRef\":\"2d4acfe9-4c79-4c72-8166-982a9a6762cd\",\"userId\":8439370,\"userIdentity\":1,\"userName\":\"luyueyue\"}";
+        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
-        String url = baseGeneralURL + askURL;
+        String url = baseCourseURL + askURL;
         String str = HttpUtil.get(url, null, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
@@ -113,8 +113,8 @@ public class CourseInfo {
     }
 
     //新建课，推荐课程模糊搜索-JIAOXUE-SERVICE-API-36
-    @Test
-    public void recommendCourses() throws Exception {
+    @Test(description = "登陆成功", dataProvider = "baseURL-Course", dataProviderClass = DataProvid.class)
+    public void recommendCourses(String baseCourseURL) throws Exception {
         String subjectId = "2";
         String gradeId = "2";
         String materialId = "23434";
@@ -122,10 +122,10 @@ public class CourseInfo {
         Map params = new HashMap();
         params.put("courseName", courseName);
         String askURL = "/course/" + subjectId + "/" + gradeId + "/" + materialId + "/recommend-courses";
-        String userHeader = "{\"enable\":1,\"password\":\"lu123456\",\"roles\":[2],\"schoolId\":50043,\"schoolUserId\":873135,\"schoolUserRef\":\"2d4acfe9-4c79-4c72-8166-982a9a6762cd\",\"userId\":8439370,\"userIdentity\":1,\"userName\":\"luyueyue\"}";
+        String userHeader = ReadJsonFile.readFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFile.json");
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
-        String url = baseGeneralURL + askURL;
+        String url = baseCourseURL + askURL;
         String str = HttpUtil.post(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
