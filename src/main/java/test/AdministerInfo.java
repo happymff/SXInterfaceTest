@@ -14,7 +14,7 @@ import java.util.Map;
 public class AdministerInfo {
 
     //根据用户ID 获取用户可以管理的班级信息-JIAOXUE-SERVICE-API-25
-    @Test(description = "登陆成功", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
+    @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void adminClass(String baseGeneralURL) throws Exception {
         String askURL = "/administers/classes";
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
@@ -29,7 +29,7 @@ public class AdministerInfo {
     }
 
     //根据用户的ID 获取用户的班级和班级所包含的科目信息-JIAOXUE-SERVICE-API-26
-    @Test(description = "登陆成功", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
+    @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void adminClassSubject(String baseGeneralURL) throws Exception {
         String askURL = "/administers/classes-subjects";
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
@@ -43,7 +43,7 @@ public class AdministerInfo {
     }
 
     //根据用户的ID 获取用户的年级、班级和班级所包含的科目信息-JIAOXUE-SERVICE-API-26
-    @Test(description = "登陆成功", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
+    @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void adminGradeClassSubject(String baseGeneralURL) throws Exception {
         String askURL = "/administers/grades-classes-subjects";
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
@@ -57,7 +57,7 @@ public class AdministerInfo {
     }
 
     //根据用户ID获取资源的年级班级列表-JIAOXUE-SERVICE-API-28
-    @Test(description = "登陆成功", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
+    @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void adminGradeSubject(String baseGeneralURL) throws Exception {
         String askURL = "/administers/grades-subjects";
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
@@ -71,7 +71,7 @@ public class AdministerInfo {
     }
 
     //根据用户的ID 获取用户的年级和班级所包含的科目信息-JIAOXUE-SERVICE-API-27
-    @Test(description = "登陆成功", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
+    @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void adminSubject(String baseGeneralURL) throws Exception {
         Boolean extend =true;
         String askURL = "/administers/grades-subjects/extend/"+extend;

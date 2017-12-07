@@ -1,2 +1,3 @@
 {"enable":1,"password":"lu123456","roles":[2],"schoolId":50043,"schoolUserId":873135,"schoolUserRef":"2d4acfe9-4c79-4c72-8166-982a9a6762cd","userId":8439370,"userIdentity":1,"userName":"luyueyue"}
 {"beginTime": "2017-12-04 15:35:42","classId": 1291044,"dcType": 1,"endTime": "2017-12-24 15:35:42"}
+{"classList": [{"beginTime": "2017-12-04 15:35:42","classId": 1291044,"dcType": 1,"endTime": "2017-12-24 15:35:42"}],"courseId": 1000030744,"courseName": "test add course","courseRemark": "test","gradeId": 1,"materialId": 484011575,"moduleId": null,"subjectId": 1,"termId": "d154e782-0922-11e7-9395-2fc6565cc9de"}

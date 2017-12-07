@@ -282,37 +282,4 @@ public class HttpUtil {
         return invokeUrl(url, params, headers, connectTimeout, readTimeout, charset, HttpMethod.HEAD);
     }
 
-    public static void main(String[] args) {
-        String baseURL = "http://192.168.11.197:30071";
-        String askURL1 = "/jRoleUsers/000006bf-f6cc-4f90-a8a1-11a83275f06d";
-        String askURL = "/jTeacherMaterialInfo/insert";
-        String askURL2 = "/jTeacherMaterialInfo/delete";
-        String userId = "24543654";
-        String subjectId = "1";
-        String gradeId = "1";
-        String materialId = "000000";
-        String termId = "d154e782-0922-11e7-9395-2fc6565cc9de";
-        String url = baseURL + askURL2;
-        Map params = new HashMap();
-        params.put("userId", userId);
-        params.put("subjectId", subjectId);
-        params.put("gradeId", gradeId);
-        params.put("termId", termId);
-        String str = HttpUtil.delete(url, params, 3000, 3000, "UTF-8");
-        //post实验
-        Map map = params;
-        map.put("materialId", materialId);
-        //post实验
-        // String str = HttpUtil.post(url, map, 3000, 3000, "UTF-8");
-        //get实验
-//        String str = HttpUtil.get(url, null, 3000, 3000, "UTF-8");
-        System.out.println(str);
-        //尝试带header的请求
-        String userHeader = "{\"enable\":1,\"password\":\"1111\",\"roles\":[2],\"schoolId\":50043,\"schoolUserId\":869451,\"schoolUserRef\":\"151f5f5a-7a91-4d27-a94d-39c1edffdaee\",\"userId\":8435376,\"userIdentity\":1,\"userName\":\"爱学派MFF\"}";
-        Map headerMap = new HashMap();
-        headerMap.put("ZUUL_CURRENT_USER",userHeader);
-        String str1 = HttpUtil.get("http://192.168.11.197:30091/users", null, headerMap,3000, 3000, "UTF-8");
-        System.out.println(str1);
-    }
-
 }
