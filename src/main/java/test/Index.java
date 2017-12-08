@@ -41,7 +41,7 @@ public class Index {
         Assert.assertTrue(code==1);
     }
 
-    //首页-头部导航-JIAOXUE-SERVICE-API-03
+    //首页-头部导航-JIAOXUE-SERVICE-API-17
     @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void getNavigations(String baseCourseURL) throws Exception {
         String askURL = "/indexes/navigations";
