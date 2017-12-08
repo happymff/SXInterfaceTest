@@ -1,4 +1,4 @@
-package test;
+package testAPI;
 
 import dataProvider.DataProvid;
 import dataProvider.ReadJsonFile;
@@ -11,29 +11,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Users {
+public class Material {
 
-    //获取用户个人信息-JIAOXUE-SERVICE-API-01
+    //获取教材列表-JIAOXUE-SERVICE-API-34
     @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
-    public void getAllModules(String baseCourseURL) throws Exception {
-        String askURL = "/users";
+    public void getMaterials(String baseCourseURL) throws Exception {
+        Integer subjectId = 1;
+        Integer gradeId = 1;
+        Integer isIndex = 1;
+        Map params = new HashMap();
+        params.put("isIndex", isIndex);
+        params.put("sId", subjectId);
+        params.put("gId", gradeId);
+        String askURL = "/materials/material-lists";
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseCourseURL + askURL;
-        String str = HttpUtil.get(url, null, headerMap, 3000, 3000, "UTF-8");
+        String str = HttpUtil.get(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
         Assert.assertTrue(code==1);
     }
 
-    //首页-上传用户头像-JIAOXUE-SERVICE-API-02?????????????????
+    //保存教师选择的教材-JIAOXUE-SERVICE-API-47
     @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void updateMaterials(String baseCourseURL) throws Exception {
-        String  file = "1";
+        Integer subjectId = 1;
+        Integer gradeId = 1;
+        Long mId = 143256L;
+        String termId = "1";
         Map params = new HashMap();
-        params.put("file", file);
-        String askURL = "/users/photos.do";
+        params.put("mId", mId);
+        params.put("sId", subjectId);
+        params.put("gId", gradeId);
+        params.put("termId",termId);
+        String askURL = "/materials/teacher-materials";
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
@@ -43,5 +56,4 @@ public class Users {
         Integer code = JsonResults.getJsonCode(str);
         Assert.assertTrue(code==1);
     }
-
 }

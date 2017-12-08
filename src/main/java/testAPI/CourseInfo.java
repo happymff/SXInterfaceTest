@@ -1,4 +1,4 @@
-package test;
+package testAPI;
 
 import dataProvider.DataProvid;
 import dataProvider.ReadJsonFile;
@@ -39,6 +39,7 @@ public class CourseInfo {
         params.put("moduleId", moduleId);
         params.put("subjectId", subjectId);
         params.put("termId", termId);
+        System.out.println(params);
         String askURL = "/courses";
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
         Map headerMap = new HashMap();

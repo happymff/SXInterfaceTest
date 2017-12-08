@@ -65,7 +65,7 @@
                     <configuration>
                         <skip>true</skip>
                         <suiteXmlFiles>
-                            <suiteXmlFile>src\test\resources\HTTPReqGenTest.xml</suiteXmlFile>
+                            <suiteXmlFile>src\testAPI\resources\HTTPReqGenTest.xml</suiteXmlFile>
                         </suiteXmlFiles>
                     </configuration>
                 </plugin>

@@ -1,9 +1,8 @@
-package test;
+package testAPI;
 
 import dataProvider.DataProvid;
 import dataProvider.ReadJsonFile;
 import org.testng.Assert;
-import org.testng.SuiteRunnerWorker;
 import org.testng.annotations.Test;
 import util.HttpUtil;
 import util.JsonResults;
@@ -64,12 +63,13 @@ public class ClassGroups {
     //更新班组的信息-JIAOXUE-SERVICE-API-44???????????
     @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void changeGroup(String baseGeneralURL ) throws Exception {
-        String groupId = "-3623600558639";
+        Long groupId = 3623600558639L;
         String groupName = "变成我的班级";
         String askURL = "/classes/groups";
         Map params = new HashMap();
-        params.put("groupId", groupId);
+        params.put("groupId", "-"+groupId);
         params.put("groupName", groupName);
+        System.out.println(params);
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);

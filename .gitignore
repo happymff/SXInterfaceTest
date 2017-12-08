@@ -6,7 +6,7 @@ sample-code
 *.trace
 xcuserdata
 *.sublime-*
-test/functional/_joined
+testAPI/functional/_joined
 *.iml
 *.autosave
 .idea/
