@@ -44,6 +44,15 @@ public class JsonExtracter {
         return getArray;
     }
 
+    public static String getJSONArray(String jsonStr, String someStringInArray,int i) {
+        //将结果转换成JSONArray对象的形式
+        net.sf.json.JSONArray getJsonArray= net.sf.json.JSONArray .fromObject(jsonStr);
+        //获取json数组中的第i项
+        net.sf.json.JSONObject getJsonObj = getJsonArray.getJSONObject(i);
+        String result=getJsonObj.getString(someStringInArray).toString();
+        return result;
+    }
+
     public static String getJSONArrayString(String jsonStr, String someStringToArray, String stringInArray) {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String getStringInArray = null;

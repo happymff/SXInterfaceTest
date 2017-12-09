@@ -39,6 +39,28 @@ public class JsonResults {
     }
 
     /**
+     * 返回json字符串的指定字符的值
+     */
+    public static String getJsonStr(String json, String someStr) {
+        if (json.contains(someStr)) {
+            return JsonExtracter.getJsonSomeString(json,someStr);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 返回json字符串data
+     */
+    public static String getJsonStrInArray(String json, String someStr, int i) {
+        if (json.contains(someStr)) {
+            return JsonExtracter.getJSONArray(json,someStr,i);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * 返回json中某个数组中的指定字符的所有值
      */
     public static String[] getStringsInArray(String json, String arrayName, String getstring) {

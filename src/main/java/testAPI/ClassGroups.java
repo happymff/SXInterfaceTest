@@ -60,7 +60,7 @@ public class ClassGroups {
         Assert.assertTrue(code==1);
     }
 
-    //更新班组的信息-JIAOXUE-SERVICE-API-44???????????
+    //更新班组的信息-JIAOXUE-SERVICE-API-44
     @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void changeGroup(String baseGeneralURL ) throws Exception {
         Long groupId = 3623600558639L;
@@ -98,7 +98,7 @@ public class ClassGroups {
         Integer code = JsonResults.getJsonCode(str);
         Assert.assertTrue(code==1);
     }
-    //改变学生所属的分组-JIAOXUE-SERVICE-API-46???????????
+    //改变学生所属的分组-JIAOXUE-SERVICE-API-46
     @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void changeStudentGroup(String baseGeneralURL ) throws Exception {
         String oldGroupId = "1";
