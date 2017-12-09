@@ -54,7 +54,7 @@ public class Users {
         String askURL = "/users/photos.do";
         String url = baseCourseURL + askURL;
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
-        String str =  HttpUtil.postFile(url, variableName,filename,"UTF-8",userHeader);
+        String str =  HttpUtil.uploadFile(url, variableName,filename,"UTF-8",userHeader);
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
         Assert.assertTrue(code==1);

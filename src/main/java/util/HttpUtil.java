@@ -1,13 +1,13 @@
 package util;
 
-import dataProvider.ReadJsonFile;
+
+import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
-import org.testng.annotations.Test;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -97,7 +97,6 @@ public class HttpUtil {
 
         } catch (Exception e) {
             logger.error("调用接口[" + url + "]失败！请求URL：" + url + "，参数：" + params, e);
-            System.out.println("发送POST请求出现异常！" + e);
             //处理错误流，提高http连接被重用的几率  
             try {
                 byte[] buf = new byte[100];
@@ -134,7 +133,7 @@ public class HttpUtil {
         return null;
     }
 
-    public static String postFile(String totalURL,String variableName,String fileName, String encoding,String userHeader) {
+    public static String uploadFile(String totalURL, String variableName, String fileName, String encoding, String userHeader) {
         BufferedReader ins = null;
         HttpURLConnection conn = null;
         try {
@@ -157,7 +156,7 @@ public class HttpUtil {
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("Charsert", "UTF-8");
             conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
-            conn.setRequestProperty("ZUUL_CURRENT_USER",userHeader);
+            conn.setRequestProperty("ZUUL_CURRENT_USER", userHeader);
             OutputStream out = new DataOutputStream(conn.getOutputStream());
 
             // 上传文件
@@ -167,7 +166,7 @@ public class HttpUtil {
             sb.append(BOUNDARY);
             sb.append(newLine);
             // 文件参数,photo参数名可以随意修改
-            sb.append("Content-Disposition: form-data;name="+variableName+";filename=\"" + fileName
+            sb.append("Content-Disposition: form-data;name=" + variableName + ";filename=\"" + fileName
                     + "\"" + newLine);
             sb.append("Content-Type:application/octet-stream");
             // 参数头设置完以后需要两个换行，然后才是参数内容
@@ -225,6 +224,148 @@ public class HttpUtil {
         }
         return null;
     }
+
+    private static String postJsonFile1(String url, Map params, Map<String, String> headers, int connectTimeout, int readTimeout, String encoding, HttpUtil.HttpMethod method) {
+
+        JSONObject jsonObject = JSONObject.fromObject(params);
+        URL uUrl = null;
+        HttpURLConnection conn = null;
+        BufferedWriter out = null;
+        BufferedReader in = null;
+        try {
+            //创建和初始化连接
+            uUrl = new URL(url);
+            conn = (HttpURLConnection) uUrl.openConnection();
+            conn.setRequestProperty("content-type", "application/json");
+            conn.setRequestMethod(method.toString());
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            //设置连接超时时间
+            conn.setConnectTimeout(connectTimeout);
+            //设置读取超时时间
+            conn.setReadTimeout(readTimeout);
+            //指定请求header参数
+            if (headers != null && headers.size() > 0) {
+                Set<String> headerSet = headers.keySet();
+                for (String key : headerSet) {
+                    conn.setRequestProperty(key, headers.get(key));
+                }
+            }
+
+            out = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), encoding));
+            out.write(jsonObject.toString());
+            out.flush();
+
+            //接收返回结果
+            StringBuilder result = new StringBuilder();
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), encoding));
+            if (in != null) {
+                String line = "";
+                while ((line = in.readLine()) != null) {
+                    result.append(line);
+                }
+            }
+            return result.toString();
+
+        } catch (Exception e) {
+            logger.error("调用接口[" + url + "]失败！请求URL：" + url + "，参数：" + jsonObject, e);
+            System.out.println("发送POST请求出现异常！" + e);
+            //处理错误流，提高http连接被重用的几率
+            try {
+                byte[] buf = new byte[100];
+                InputStream es = conn.getErrorStream();
+                if (es != null) {
+                    while (es.read(buf) > 0) {
+                        ;
+                    }
+                    es.close();
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //关闭连接
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+
+        return null;
+    }
+
+    public static String httpUrlConnectionPut(String aurl, Map params, Map<String, String> headers, int connectTimeout, int readTimeout, String encoding, HttpUtil.HttpMethod method) {
+        JSONObject jsonObject = JSONObject.fromObject(params);
+        String result = "";
+        URL url = null;
+        try {
+            url = new URL(aurl);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        if (url != null) {
+            try {
+                HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+                urlConn.setRequestProperty("content-type", "application/json");
+                urlConn.setDoInput(true);
+                urlConn.setDoOutput(true);
+                urlConn.setConnectTimeout(connectTimeout);
+                //指定请求header参数
+                if (headers != null && headers.size() > 0) {
+                    Set<String> headerSet = headers.keySet();
+                    for (String key : headerSet) {
+                        urlConn.setRequestProperty(key, headers.get(key));
+                    }
+                }
+                //设置请求方式为 PUT
+                urlConn.setRequestMethod("PUT");
+
+                urlConn.setRequestProperty("Content-Type", "application/json");
+                urlConn.setRequestProperty("Accept", "application/json");
+
+                urlConn.setRequestProperty("Charset", encoding);
+
+
+                DataOutputStream dos = new DataOutputStream(urlConn.getOutputStream());
+                //写入请求参数
+                //这里要注意的是，在构造JSON字符串的时候，实践证明，最好不要使用单引号，而是用“\”进行转义，否则会报错
+                // 关于这一点在上面给出的参考文章里面有说明
+                dos.writeBytes(jsonObject.toString());
+                dos.flush();
+                dos.close();
+
+                InputStreamReader isr = new InputStreamReader(urlConn.getInputStream());
+                BufferedReader br = new BufferedReader(isr);
+                String inputLine = null;
+                while ((inputLine = br.readLine()) != null) {
+                    result += inputLine;
+                }
+                isr.close();
+                urlConn.disconnect();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+
+    }
+
     /**
      * POST方法提交Http请求，语义为“增加” <br/>
      * 注意：Http方法中只有POST方法才能使用body来提交内容
@@ -254,6 +395,37 @@ public class HttpUtil {
      */
     public static String post(String url, Map params, Map<String, String> headers, int connectTimeout, int readTimeout, String charset) {
         return invokeUrl(url, params, headers, connectTimeout, readTimeout, charset, HttpMethod.POST);
+    }
+
+    /**
+     * POST方法提交Http请求，语义为“增加” <br/>
+     * 注意：Http方法中只有POST方法才能使用body来提交内容
+     *
+     * @param url            资源路径（如果url中已经包含参数，则params应该为null）
+     * @param params         参数
+     * @param connectTimeout 连接超时时间（单位为ms）
+     * @param readTimeout    读取超时时间（单位为ms）
+     * @param charset        字符集（一般该为“utf-8”）
+     * @return
+     */
+    public static String postJsonFile(String url, Map params, int connectTimeout, int readTimeout, String charset) {
+        return postJsonFile1(url, params, null, connectTimeout, readTimeout, charset, HttpMethod.POST);
+    }
+
+    /**
+     * POST方法提交Http请求，语义为“增加” <br/>
+     * 注意：Http方法中只有POST方法才能使用body来提交内容
+     *
+     * @param url            资源路径（如果url中已经包含参数，则params应该为null）
+     * @param params         参数
+     * @param headers        请求头参数
+     * @param connectTimeout 连接超时时间（单位为ms）
+     * @param readTimeout    读取超时时间（单位为ms）
+     * @param charset        字符集（一般该为“utf-8”）
+     * @return
+     */
+    public static String postJsonFile(String url, Map params, Map<String, String> headers, int connectTimeout, int readTimeout, String charset) {
+        return postJsonFile1(url, params, headers, connectTimeout, readTimeout, charset, HttpMethod.POST);
     }
 
     /**
@@ -314,6 +486,37 @@ public class HttpUtil {
      */
     public static String put(String url, Map params, Map<String, String> headers, int connectTimeout, int readTimeout, String charset) {
         return invokeUrl(url, params, headers, connectTimeout, readTimeout, charset, HttpMethod.PUT);
+    }
+
+    /**
+     * PUT方法提交Http请求，语义为“更改” <br/>
+     * 注意：PUT方法也是使用url提交参数内容而非body，所以参数最大长度收到服务器端实现的限制，Resin大概是8K
+     *
+     * @param url            资源路径（如果url中已经包含参数，则params应该为null）
+     * @param params         参数
+     * @param connectTimeout 连接超时时间（单位为ms）
+     * @param readTimeout    读取超时时间（单位为ms）
+     * @param charset        字符集（一般该为“utf-8”）
+     * @return
+     */
+    public static String putJsonFile(String url, Map params, int connectTimeout, int readTimeout, String charset) {
+        return postJsonFile1(url, params, null, connectTimeout, readTimeout, charset, HttpMethod.PUT);
+    }
+
+    /**
+     * PUT方法提交Http请求，语义为“更改” <br/>
+     * 注意：PUT方法也是使用url提交参数内容而非body，所以参数最大长度收到服务器端实现的限制，Resin大概是8K
+     *
+     * @param url            资源路径（如果url中已经包含参数，则params应该为null）
+     * @param params         参数
+     * @param headers        请求头参数
+     * @param connectTimeout 连接超时时间（单位为ms）
+     * @param readTimeout    读取超时时间（单位为ms）
+     * @param charset        字符集（一般该为“utf-8”）
+     * @return
+     */
+    public static String putJsonFile(String url, Map params, Map<String, String> headers, int connectTimeout, int readTimeout, String charset) {
+        return postJsonFile1(url, params, headers, connectTimeout, readTimeout, charset, HttpMethod.PUT);
     }
 
     /**

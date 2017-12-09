@@ -55,6 +55,11 @@ public class ReadJsonFile {
         JSON jsonFile = JSON.parseObject(jsonStrings[i]);
         return jsonFile;
     }
+    public static String getFile(String Path, int i){
+        String jsonString =readFile(Path);
+        String[] jsonStrings = jsonString.split("\n");
+        return jsonStrings[i];
+    }
     public static void main(String[] args) {
        String s= getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",1);
         System.out.println(s);

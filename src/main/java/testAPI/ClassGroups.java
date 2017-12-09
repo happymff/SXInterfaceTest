@@ -74,7 +74,7 @@ public class ClassGroups {
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseGeneralURL + askURL;
-        String str = HttpUtil.put(url, params, headerMap, 3000, 3000, "UTF-8");
+        String str = HttpUtil.putJsonFile(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
         Assert.assertTrue(code==1);
@@ -93,7 +93,7 @@ public class ClassGroups {
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseGeneralURL + askURL;
-        String str = HttpUtil.post(url, params, headerMap, 3000, 3000, "UTF-8");
+        String str = HttpUtil.postJsonFile(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
         Assert.assertTrue(code==1);
@@ -115,7 +115,7 @@ public class ClassGroups {
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseGeneralURL + askURL;
-        String str = HttpUtil.put(url, params, headerMap, 3000, 3000, "UTF-8");
+        String str = HttpUtil.putJsonFile(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
         Assert.assertTrue(code==1);

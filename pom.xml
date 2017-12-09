@@ -114,5 +114,31 @@
             <artifactId>com.springsource.org.apache.log4j</artifactId>
             <version>1.2.16</version>
         </dependency>
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-plugin</artifactId>
+            <version>0.19.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.webhooks</groupId>
+            <artifactId>atlassian-webhooks-plugin</artifactId>
+            <version>0.15.0</version>
+        </dependency>
+        <dependency>
+            <groupId>apache-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.0.jboss</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.webhooks</groupId>
+            <artifactId>atlassian-webhooks-plugin</artifactId>
+            <version>0.15.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.3</version>
+            <classifier>jdk15</classifier>
+        </dependency>
     </dependencies>
 </project>

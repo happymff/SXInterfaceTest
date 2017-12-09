@@ -64,7 +64,7 @@ public class Classes {
         Assert.assertTrue(code==1);
     }
 
-    //首页-发班级通知照片-JIAOXUE-SERVICE-API-31???????????????
+    //首页-发班级通知照片-JIAOXUE-SERVICE-API-31
     @Test(description = "baseURL-General", dataProvider = "baseURL-General", dataProviderClass = DataProvid.class)
     public void sendMessageImage(String baseCourseURL) throws Exception {
         String variableName = "file";
@@ -72,7 +72,7 @@ public class Classes {
         String askURL = "/classes/messages/images";
         String url = baseCourseURL + askURL;
         String userHeader = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",0);
-        String str =  HttpUtil.postFile(url, variableName,filename,"UTF-8",userHeader);
+        String str =  HttpUtil.uploadFile(url, variableName,filename,"UTF-8",userHeader);
         System.out.println(str);
         Integer code = JsonResults.getJsonCode(str);
         Assert.assertTrue(code==1);

@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class CourseInfo {
 
-    //创建课程-JIAOXUE-SERVICE-API-48???????????
+    //创建课程-JIAOXUE-SERVICE-API-48
     @Test(description = "baseURL-Course", dataProvider = "baseURL-Course", dataProviderClass = DataProvid.class)
     public void createCourse(String baseCourseURL) throws Exception {
         String paramJson = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",1);
@@ -45,7 +45,7 @@ public class CourseInfo {
         Map headerMap = new HashMap();
         headerMap.put("ZUUL_CURRENT_USER", userHeader);
         String url = baseCourseURL + askURL;
-        String str = HttpUtil.post(url, params, headerMap, 3000, 3000, "UTF-8");
+        String str = HttpUtil.postJsonFile(url, params, headerMap, 3000, 3000, "UTF-8");
         System.out.println(str);
         try {
             Integer code = JsonResults.getJsonCode(str);
