@@ -29,6 +29,12 @@ public class JsonExtracter {
         String someString1 = (String) jsonObject.get(someString);
         return someString1;
     }
+
+    public static Integer getJsonSomeStringValue(String jsonStr, String someString) {
+        JSONObject jsonObject = JSON.parseObject(jsonStr);
+        Integer someStringValue = (Integer) jsonObject.get(someString);
+        return someStringValue;
+    }
     public static Integer getJsonSomeInt(String jsonStr, String someString) {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         Integer someString1 = (Integer) jsonObject.get(someString);
@@ -44,6 +50,23 @@ public class JsonExtracter {
         return getArray;
     }
 
+    public static Integer getJSONArrayValue(String jsonStr, String someStringToArray) {
+        JSONObject jsonObject = JSON.parseObject(jsonStr);
+        Integer getArray = null;
+        //注意：results中的内容带有中括号[]，所以要转化为JSONArray类型的对象
+        JSONArray result = jsonObject.getJSONArray(someStringToArray);
+        getArray =Integer.valueOf(result.toString());
+        return getArray;
+    }
+
+    public static Integer getJSONArrayValue(String jsonStr, String someStringInArray,int i) {
+        //将结果转换成JSONArray对象的形式
+        net.sf.json.JSONArray getJsonArray= net.sf.json.JSONArray .fromObject(jsonStr);
+        //获取json数组中的第i项
+        net.sf.json.JSONObject getJsonObj = getJsonArray.getJSONObject(i);
+        Integer result= Integer.valueOf(getJsonObj.getString(someStringInArray).toString());
+        return result;
+    }
     public static String getJSONArray(String jsonStr, String someStringInArray,int i) {
         //将结果转换成JSONArray对象的形式
         net.sf.json.JSONArray getJsonArray= net.sf.json.JSONArray .fromObject(jsonStr);

@@ -1,8 +1,5 @@
 package util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class JsonResults {
 
     /**
@@ -50,11 +47,34 @@ public class JsonResults {
     }
 
     /**
+     * 返回json字符串的指定字符的值
+     */
+    public static Integer getJsonSomeStringValue(String json, String someStr) {
+        if (json.contains(someStr)) {
+            return JsonExtracter.getJsonSomeInt(json,someStr);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * 返回json字符串data
      */
     public static String getJsonStrInArray(String json, String someStr, int i) {
         if (json.contains(someStr)) {
             return JsonExtracter.getJSONArray(json,someStr,i);
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * 返回json字符串data
+     */
+    public static Integer getJsonStrInArrayValue(String json, String someStr, int i) {
+        if (json.contains(someStr)) {
+            return JsonExtracter.getJSONArrayValue(json,someStr,i);
         } else {
             return null;
         }
