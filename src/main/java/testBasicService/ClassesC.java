@@ -78,7 +78,7 @@ public class ClassesC {
         Assert.assertTrue(str.contains("高三"));
     }
 
-    //根据班级人员信息获取班级列表-JIAOXUE-SERVICE-API-？？
+    //根据班级人员信息获取班级列表-JIAOXUE-SERVICE-API-？？???????
     @Test(description = "baseURL-GeneralC", dataProvider = "baseURL-GeneralC", dataProviderClass = DataProvid.class)
     public void getAllClasses(String baseCourseURL) throws Exception {
         String paramJson = ReadJsonFile.getJsonFile("/Users/mff/Desktop/workspace/SXInterfaceTest/src/main/resources/jsonFiles.txt",2);
