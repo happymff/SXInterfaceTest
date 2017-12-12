@@ -32,7 +32,7 @@ public class TeacherC {
         params.put("userRef",userRef);
         String askURL = "/teachers/user-refs";
         String url = baseCourseURL + askURL;
-        String str = HttpUtil.putJsonFile(url, params, null, 3000, 3000, "UTF-8");
+        String str = HttpUtil.postJsonFile(url, params, null, 3000, 3000, "UTF-8");
         System.out.println(str);
         Assert.assertTrue("操作成功".equals(JsonResults.getJsonMsg(str)));
     }

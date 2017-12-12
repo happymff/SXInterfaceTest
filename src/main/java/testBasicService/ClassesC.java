@@ -20,7 +20,7 @@ public class ClassesC {
     public void getClassByClassIDSchoolID(String baseCourseURL) throws Exception {
         String classId = "1291044";
         String schoolYear = "2017~2018";
-        String askURL = "/classes/class-id/"+classId+"/"+schoolYear;
+        String askURL = "/classes/"+classId+"/years/"+schoolYear+"/class";
         String url = baseCourseURL + askURL;
         String str = HttpUtil.get(url, null, null, 3000, 3000, "UTF-8");
         System.out.println(str);
@@ -28,37 +28,23 @@ public class ClassesC {
         Assert.assertTrue("行政班".equals(pattern));
     }
 
-    //根据一组classId获取班级信息-JIAOXUE-SERVICE-API-？？
+    //根据classId获取班级信息-JIAOXUE-SERVICE-API-？？
     @Test(description = "baseURL-GeneralC", dataProvider = "baseURL-GeneralC", dataProviderClass = DataProvid.class)
     public void getClassByClassID(String baseCourseURL) throws Exception {
         String classId = "1291044";
-        String askURL = "/classes/class-ids/"+classId;
+        String askURL = "/classes/"+classId+"/class";
         String url = baseCourseURL + askURL;
         String str = HttpUtil.get(url, null, null, 3000, 3000, "UTF-8");
         System.out.println(str);
-        String classGrade = JsonResults.getJsonStrInArray(str,"classGrade",0);
+        String classGrade = JsonResults.getJsonStr(str,"classGrade");
         Assert.assertTrue("高三".equals(classGrade));
     }
 
-    //根据一组classId获取班级信息并通过year过滤-JIAOXUE-SERVICE-API-？？
+    //根据一组classId获取班级信息-JIAOXUE-SERVICE-API-？？
     @Test(description = "baseURL-GeneralC", dataProvider = "baseURL-GeneralC", dataProviderClass = DataProvid.class)
-    public void getClassByClassIDsSchoolID(String baseCourseURL) throws Exception {
+    public void getClassByClassIDs(String baseCourseURL) throws Exception {
         String classId = "1291044";
-        String schoolYear = "2017~2018";
-        String askURL = "/classes/class-ids/"+classId+"/years/"+schoolYear;
-        String url = baseCourseURL + askURL;
-        String str = HttpUtil.get(url, null, null, 3000, 3000, "UTF-8");
-        System.out.println(str);
-        String classGrade = JsonResults.getJsonStrInArray(str,"classGrade",0);
-        Assert.assertTrue("高三".equals(classGrade));
-    }
-
-    //根据一组classId获取班级信息并通过year过滤-JIAOXUE-SERVICE-API-？？
-    @Test(description = "baseURL-GeneralC", dataProvider = "baseURL-GeneralC", dataProviderClass = DataProvid.class)
-    public void getClassByClassIDsSchoolIDs(String baseCourseURL) throws Exception {
-        String schoolId = "1291044";
-        String schoolYear = "2017~2018";
-        String askURL = "/classes/class-ids/"+schoolId+"/"+schoolYear;
+        String askURL = "/classes/"+classId+"/classes";
         String url = baseCourseURL + askURL;
         String str = HttpUtil.get(url, null, null, 3000, 3000, "UTF-8");
         System.out.println(str);
@@ -69,14 +55,29 @@ public class ClassesC {
     //根据学校Id 和 学年 获取班级的信息-JIAOXUE-SERVICE-API-？？
     @Test(description = "baseURL-GeneralC", dataProvider = "baseURL-GeneralC", dataProviderClass = DataProvid.class)
     public void getClassBYearSchoolID(String baseCourseURL) throws Exception {
-        String classId = "50043";
-        String schoolYear = "2017~2018";
-        String askURL = "/classes/school-ids/"+classId+"/years/"+schoolYear;
+        String classIds = "1291044";
+        String year = "2017~2018";
+        String askURL = "/classes/"+classIds+"/years/"+year+"/classes";
+        String url = baseCourseURL + askURL;
+        String str = HttpUtil.get(url, null, null, 3000, 3000, "UTF-8");
+        System.out.println(str);
+        String classGrade = JsonResults.getJsonStrInArray(str,"classGrade",0);
+        Assert.assertTrue("高三".equals(classGrade));
+    }
+
+
+    //根据一组classId获取班级信息-JIAOXUE-SERVICE-API-？？
+    @Test(description = "baseURL-GeneralC", dataProvider = "baseURL-GeneralC", dataProviderClass = DataProvid.class)
+    public void getClassBySchoolID(String baseCourseURL) throws Exception {
+        String schoolId = "50043";
+        String year = "2017~2018";
+        String askURL = "/classes/schools/"+schoolId+"/years/"+year+"/classes";
         String url = baseCourseURL + askURL;
         String str = HttpUtil.get(url, null, null, 3000, 3000, "UTF-8");
         System.out.println(str);
         Assert.assertTrue(str.contains("高三"));
     }
+
     //根据班级人员信息获取班级列表-JIAOXUE-SERVICE-API-？？
     @Test(description = "baseURL-GeneralC", dataProvider = "baseURL-GeneralC", dataProviderClass = DataProvid.class)
     public void getAllClasses(String baseCourseURL) throws Exception {
