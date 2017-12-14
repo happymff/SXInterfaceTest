@@ -50,6 +50,20 @@ public class DataProvid {
         };
     }
 
+    @DataProvider(name = "baseURL-PageB")
+    public static Object[][] baseURLPageB() {
+        return new Object[][]{
+                new Object[]{"http://192.168.11.187:8005"}
+        };
+    }
+
+    @DataProvider(name = "baseURL-B")
+    public static Object[][] baseURLDiscussB() {
+        return new Object[][]{
+                new Object[]{"http://192.168.11.187:8004"}
+        };
+    }
+
 
     @DataProvider(name = "baseURL-GeneralC")
     public static Object[][] baseURLGeneralC() {
